@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsk.platform.game.dao.GameMapper">
+
+    <delete id="deleteByPrimaryKey" statementType="PREPARED" parameterType="long">
+        delete from platform_game where id = #{id}
+    </delete>
+
+    <!-- 批量删除-->
+    <delete id="deleteByPrimaryKeyBatch" parameterType="list" >
+        delete from platform_game where id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="Game">
+        insert into platform_game
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="name != null">name,</if>
+            <if test="icon != null">icon,</if>
+            <if test="description != null">description,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="createTime != null">createTime,</if>
+            <if test="status != null">status,</if>
+            <if test="star != null">star,</if>
+            <if test="label1 != null">label1,</if>
+            <if test="label2 != null">label2,</if>
+            <if test="label3 != null">label3,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=BIGINT},
+            <if test="name != null">#{name},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="description != null">#{description},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status},</if>
+            <if test="star != null">#{star},</if>
+            <if test="label1 != null">#{label1},</if>
+            <if test="label2 != null">#{label2},</if>
+            <if test="label3 != null">#{label3},</if>
+        </trim>
+    </insert>
+</mapper>

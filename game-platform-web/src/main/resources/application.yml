@@ -1,2 +1,12 @@
+server:
+  port: 6000
+spring:
+  application:
+    name: wxsk-platform-game
+  profiles:
+    active: @package.environment@
 logging:
   config: classpath:logback.xml
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:/com/wxsk/platform/game/dao/mapping/*.xml
