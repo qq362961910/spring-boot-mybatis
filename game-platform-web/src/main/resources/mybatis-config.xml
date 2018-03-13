@@ -29,6 +29,6 @@
         <typeAlias type="com.wxsk.platform.game.entity.Game" alias="Game"/>
     </typeAliases>
     <plugins>
-        <plugin interceptor="com.wxsk.common.util.mybatis.GenCreateInterceptor" />
+        <plugin interceptor="com.wxsk.common.util.mybatis.GenCreateInterceptor"/>
     </plugins>
 </configuration>

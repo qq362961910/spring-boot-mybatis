@@ -29,16 +29,13 @@ public class ControllerAspect {
         try {
             ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = requestAttributes.getRequest();
-            //url
-            logger.info("url: {}", request.getRequestURL());
-            //method
-            logger.info("method: {}", request.getMethod());
-            //ip
-            logger.info("ip: {}", request.getRemoteAddr());
-            //类方法
-            logger.info("class-method: {}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-            //参数
-            logger.info("args: {}", joinPoint.getArgs());
+            //url, method, ip, 类方法, 参数
+            logger.info("\r\nurl: {}\r\nmethod: {}\r\nip: {}\r\nclass-method: {}\r\nargs: {}",
+                    request.getRequestURL(),
+                    request.getMethod(),
+                    request.getRemoteAddr(),
+                    joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),
+                    joinPoint.getArgs());
         } catch (Exception e) {
             logger.error("", e);
         }

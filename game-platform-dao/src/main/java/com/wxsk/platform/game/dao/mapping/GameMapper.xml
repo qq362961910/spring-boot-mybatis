@@ -49,17 +49,17 @@
         (id, name, icon, description, merchant_id, create_time, status, star, label1, label2, label3)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{id,jdbcType=BIGINT},
-            #{name},
-            #{icon},
-            #{description},
-            #{merchantId},
-            #{createTime,jdbcType=TIMESTAMP},
-            #{status},
-            #{star},
-            #{label1},
-            #{label2},
-            #{label3})
+            (#{item.id,jdbcType=BIGINT},
+            #{item.name},
+            #{item.icon},
+            #{item.description},
+            #{item.merchantId},
+            #{item.createTime,jdbcType=TIMESTAMP},
+            #{item.status},
+            #{item.star},
+            #{item.label1},
+            #{item.label2},
+            #{item.label3})
         </foreach>
     </insert>
 

@@ -12,7 +12,6 @@ import com.wxsk.platform.game.service.GameService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -98,6 +97,16 @@ public class GameController {
         return resultVoWrapper.buildSuccess(data);
     }
 
+    @ApiOperation("批量插入游戏")
+    @PostMapping("insert_batch")
+    public Object insertBatch(@RequestBody List<GameDto> gameDtoList) {
+        if(gameDtoList != null && gameDtoList.size() > 0) {
+            gameService.insertBatch(gameDtoList);
+        }
+        return resultVoWrapper.buildSuccess();
+    }
+
+
     private ResultVo dealErrors(BindingResult errors) {
         if(errors.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -116,4 +125,5 @@ public class GameController {
         this.resultVoWrapper = resultVoWrapper;
         this.gameVoWrapper = gameVoWrapper;
     }
+
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8106
 spring:
   application:
     name: wxsk-platform-game
