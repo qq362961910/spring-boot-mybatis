@@ -1,10 +1,13 @@
 package com.wxsk.platform.game.controller.response.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public abstract class BaseVo {
 
     /**
      * 结构类型
      */
+    @JsonProperty("structureType")
     protected String structureType;
 
     public String getStructureType() {

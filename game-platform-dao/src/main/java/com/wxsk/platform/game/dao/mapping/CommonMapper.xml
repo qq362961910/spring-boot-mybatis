@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommonMapper">
+<sql id="orderByAndSplitPage">
+    <if test="sort != null">
+        <foreach collection="sort" item="item" separator=",">
+            ${order.property} ${order.direction.name}
+        </foreach>
+    </if>
+    <if test="pageNumber != null and pageSize != null">
+        limit ${offset},${pageSize}
+    </if>
+</sql>
+</mapper>

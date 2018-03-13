@@ -1,8 +1,9 @@
 package com.wxsk.platform.game.controller.response.wrapper;
 
-import com.wxsk.platform.game.controller.response.vo.BaseVo;
 import com.wxsk.platform.game.controller.response.vo.ResultVo;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class ResultVoWrapper {
@@ -17,13 +18,13 @@ public class ResultVoWrapper {
     public ResultVo buildSuccess() {
         return buildSuccess(null, null);
     }
-    public ResultVo buildSuccess(BaseVo data) {
+    public ResultVo buildSuccess(Map<String, Object> data) {
         return buildSuccess(null, data);
     }
     public ResultVo buildSuccess(String message) {
         return buildSuccess(message, null);
     }
-    public ResultVo buildSuccess(String message, BaseVo data) {
+    public ResultVo buildSuccess(String message, Map<String, Object> data) {
         ResultVo vo = new ResultVo();
         vo.setStatus(SUCCESS);
         vo.setErrorCode(null);
@@ -35,13 +36,16 @@ public class ResultVoWrapper {
     /**
      * 失败
      * */
-    private ResultVo buildFail(BaseVo data) {
-        return buildFail(null, data);
+    public ResultVo buildFail() {
+        return buildFail(null, null);
     }
-    private ResultVo buildFail(String errorCode, BaseVo data) {
+    public ResultVo buildFail(String errorCode) {
+        return buildFail(errorCode, null);
+    }
+    public ResultVo buildFail(String errorCode, Map<String, Object> data) {
         return buildFail(errorCode, null, data);
     }
-    private ResultVo buildFail(String errorCode, String message, BaseVo data) {
+    public ResultVo buildFail(String errorCode, String message, Map<String, Object> data) {
         ResultVo vo = new ResultVo();
         vo.setStatus(FAIL);
         vo.setErrorCode(errorCode);

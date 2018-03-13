@@ -9,7 +9,7 @@ create table platform_game
   icon VARCHAR(128) COMMENT 'icon地址',
   description VARCHAR(128) COMMENT '游戏描述',
   merchant_id BIGINT COMMENT '商户id',
-  createTime DATETIME COMMENT '创建时间',
+  create_time DATETIME COMMENT '创建时间',
   status INT COMMENT '状态',
   star INT COMMENT '星级, 满星为10',
   label1 VARCHAR(10) COMMENT '标签1',

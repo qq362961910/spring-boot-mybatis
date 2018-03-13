@@ -3,20 +3,22 @@ package com.wxsk.platform.game.controller.response.vo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class ResultVo {
 
     @JsonProperty("status")
     private int status;
 
-    @JsonProperty("status")
+    @JsonProperty("errorCode")
     private String errorCode;
 
-    @JsonProperty("status")
+    @JsonProperty("message")
     private String message;
 
     @JsonProperty("data")
-    private BaseVo data;
+    private Map<String, Object> data;
 
     public int getStatus() {
         return status;
@@ -42,11 +44,11 @@ public class ResultVo {
         this.message = message;
     }
 
-    public BaseVo getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 
-    public void setData(BaseVo data) {
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 }
