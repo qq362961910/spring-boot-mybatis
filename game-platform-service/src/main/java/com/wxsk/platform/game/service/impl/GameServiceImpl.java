@@ -18,7 +18,7 @@ public class GameServiceImpl extends BaseServiceImpl<Game,GameMapper> implements
 
     @Override
     public List<Game> queryByParamMap(GameRequestParam param) {
-        return null;
+        return gameMapper.queryByParamMap(param);
     }
 
     @Override

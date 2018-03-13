@@ -85,7 +85,13 @@ public class GameController {
     }
     @ApiOperation("根据param查询游戏")
     @PostMapping("list")
-    public Object queryGameByParam(@PageableDefault(page = 1, size = 5)@RequestBody GameRequestParam requestParam) {
+    public Object queryGameByParam(@RequestBody GameRequestParam requestParam) {
+        if(requestParam.getPageNumber() < 0) {
+            requestParam.setPageNumber(0);
+        }
+        if(requestParam.getPageSize() < 1 || requestParam.getPageSize() > 20) {
+            requestParam.setPageSize(5);
+        }
         List<Game> gameList = gameService.queryByParamMap(requestParam);
         Map<String, Object> data = new HashMap<>();
         data.put("gameList", gameVoWrapper.buildGameVoList(gameList));

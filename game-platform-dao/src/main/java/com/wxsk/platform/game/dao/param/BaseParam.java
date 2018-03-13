@@ -21,14 +21,23 @@ public class BaseParam implements Pageable {
     protected Sort sort;
 
 
+
     @Override
     public int getPageNumber() {
         return pageNumber;
     }
 
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
     @Override
     public int getPageSize() {
         return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     @Override
@@ -39,6 +48,10 @@ public class BaseParam implements Pageable {
     @Override
     public Sort getSort() {
         return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
     }
 
     @Override

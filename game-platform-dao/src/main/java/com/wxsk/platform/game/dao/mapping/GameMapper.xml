@@ -155,7 +155,7 @@
         </foreach>
     </update>
 
-    <select id="queryByParamMap" statementType="PREPARED">
+    <select id="queryByParamMap" statementType="PREPARED" resultMap="BaseResultMap">
         select <include refid="Query_Base_Columns"/>
         from platform_game
         <include refid="sql_of_where"/>
