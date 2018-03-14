@@ -22,7 +22,7 @@ public class ListContentValidator  implements ConstraintValidator<ListContentVal
         if(list != null && list.size() > 0) {
             Validator validator = localValidatorFactoryBean.getValidator();
             for(Object obj: list) {
-                if(validator.validate(obj, Insert.class, Update.class).size() > 0) {
+                if(validator.validate(obj, Insert.class).size() > 0) {
                     return false;
                 }
             }
