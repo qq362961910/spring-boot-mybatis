@@ -1,5 +1,8 @@
 package com.wxsk.platform.game.controller;
 
+import com.wxsk.cas.client.annotation.AccessRequired;
+import com.wxsk.common.exception.ServiceException;
+import com.wxsk.passport.model.User;
 import com.wxsk.platform.game.controller.request.dto.GameDto;
 import com.wxsk.platform.game.controller.request.dto.GameDtoList;
 import com.wxsk.platform.game.controller.response.vo.ResultVo;
@@ -10,6 +13,9 @@ import com.wxsk.platform.game.controller.validator.operation.Update;
 import com.wxsk.platform.game.dao.param.GameRequestParam;
 import com.wxsk.platform.game.entity.Game;
 import com.wxsk.platform.game.service.GameService;
+import com.wxsk.platform.game.service.exception.ErrorCode;
+import com.wxsk.platform.game.service.redis.GameRedisOperation;
+import com.wxsk.platform.game.util.WebUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +41,7 @@ public class GameController {
     private GameService gameService;
     private ResultVoWrapper resultVoWrapper;
     private GameVoWrapper gameVoWrapper;
+    private GameRedisOperation gameRedisOperation;
 
     @ApiOperation("新增游戏")
     @PostMapping
@@ -114,6 +121,18 @@ public class GameController {
         return resultVoWrapper.buildSuccess();
     }
 
+    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
+    @GetMapping("user_info_exchange_code")
+    public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId) {
+        User user = WebUtil.getCurrentUser();
+        if(user == null) {
+            throw new ServiceException(ErrorCode.NON_USER_LOGIN.getCode());
+        }
+        String code = gameRedisOperation.generateUserInfoExchangeCode(user, gameId);
+        Map<String, Object> data = new HashMap<>();
+        data.put("code", code);
+        return resultVoWrapper.buildSuccess(data);
+    }
 
     private ResultVo dealErrors(BindingResult errors) {
         if(errors.hasErrors()) {
@@ -128,10 +147,10 @@ public class GameController {
         return null;
     }
 
-    public GameController(GameService gameService, ResultVoWrapper resultVoWrapper, GameVoWrapper gameVoWrapper) {
+    public GameController(GameService gameService, ResultVoWrapper resultVoWrapper, GameVoWrapper gameVoWrapper, GameRedisOperation gameRedisOperation) {
         this.gameService = gameService;
         this.resultVoWrapper = resultVoWrapper;
         this.gameVoWrapper = gameVoWrapper;
+        this.gameRedisOperation = gameRedisOperation;
     }
-
 }

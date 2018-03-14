@@ -37,10 +37,13 @@ public class ResultVoWrapper {
      * 失败
      * */
     public ResultVo buildFail() {
-        return buildFail(null, null);
+        return buildFail(null, (String) null);
     }
     public ResultVo buildFail(String errorCode) {
-        return buildFail(errorCode, null);
+        return buildFail(errorCode, (String)null);
+    }
+    public ResultVo buildFail(String errorCode, String msg) {
+        return buildFail(errorCode, msg, null);
     }
     public ResultVo buildFail(String errorCode, Map<String, Object> data) {
         return buildFail(errorCode, null, data);

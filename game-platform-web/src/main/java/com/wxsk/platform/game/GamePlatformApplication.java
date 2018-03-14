@@ -1,5 +1,6 @@
 package com.wxsk.platform.game;
 
+import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
+@DubboComponentScan(basePackages = "com.wxsk.platform.game.service")
 @MapperScan("com.wxsk.platform.game.dao")
 @SpringBootApplication
 public class GamePlatformApplication {

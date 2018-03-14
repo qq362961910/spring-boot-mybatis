@@ -1,7 +1,6 @@
 package com.wxsk.platform.game.controller.validator;
 
 import com.wxsk.platform.game.controller.validator.operation.Insert;
-import com.wxsk.platform.game.controller.validator.operation.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
