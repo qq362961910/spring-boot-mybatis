@@ -6,6 +6,7 @@ create table platform_game
 (
   id BIGINT COMMENT '主键' PRIMARY KEY,
   name VARCHAR(20) COMMENT '游戏名称',
+  index_page VARCHAR(128) COMMENT '游戏首页',
   icon VARCHAR(128) COMMENT 'icon地址',
   description VARCHAR(128) COMMENT '游戏描述',
   merchant_id BIGINT COMMENT '商户id',

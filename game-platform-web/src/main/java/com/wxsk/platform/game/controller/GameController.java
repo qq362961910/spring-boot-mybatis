@@ -1,6 +1,7 @@
 package com.wxsk.platform.game.controller;
 
 import com.wxsk.platform.game.controller.request.dto.GameDto;
+import com.wxsk.platform.game.controller.request.dto.GameDtoList;
 import com.wxsk.platform.game.controller.response.vo.ResultVo;
 import com.wxsk.platform.game.controller.response.wrapper.GameVoWrapper;
 import com.wxsk.platform.game.controller.response.wrapper.ResultVoWrapper;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import java.util.Map;
 /**
  * 游戏相关api
  * */
+@Validated
 @RequestMapping("game/v1")
 @RestController
 public class GameController {
@@ -99,7 +102,12 @@ public class GameController {
 
     @ApiOperation("批量插入游戏")
     @PostMapping("insert_batch")
-    public Object insertBatch(@RequestBody List<GameDto> gameDtoList) {
+    public Object insertBatch(@Valid @RequestBody GameDtoList list, BindingResult errors) {
+        ResultVo vo = dealErrors(errors);
+        if(vo != null) {
+            return vo;
+        }
+        List<GameDto> gameDtoList = list.getGameDtoList();
         if(gameDtoList != null && gameDtoList.size() > 0) {
             gameService.insertBatch(gameDtoList);
         }

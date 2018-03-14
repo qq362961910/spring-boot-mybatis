@@ -19,6 +19,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,
             <if test="name != null">name,</if>
+            <if test="indexPage != null">index_page,</if>
             <if test="icon != null">icon,</if>
             <if test="description != null">description,</if>
             <if test="merchantId != null">merchant_id,</if>
@@ -32,6 +33,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             #{id,jdbcType=BIGINT},
             <if test="name != null">#{name},</if>
+            <if test="indexPage != null">#{indexPage},</if>
             <if test="icon != null">#{icon},</if>
             <if test="description != null">#{description},</if>
             <if test="merchantId != null">#{merchantId},</if>
@@ -46,11 +48,12 @@
 
     <insert id="insertBatch"  parameterType="list">
         insert into platform_game
-        (id, name, icon, description, merchant_id, create_time, status, star, label1, label2, label3)
+        (id, name, index_page, icon, description, merchant_id, create_time, status, star, label1, label2, label3)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=BIGINT},
             #{item.name},
+            #{item.indexPage},
             #{item.icon},
             #{item.description},
             #{item.merchantId},
@@ -84,6 +87,9 @@
         <set>
             <if test="name != null" >
                 name = #{name},
+            </if>
+            <if test="indexPage != null" >
+                index_page = #{indexPage},
             </if>
             <if test="icon != null" >
                 icon = #{icon},
@@ -122,6 +128,9 @@
             <set>
                 <if test="name != null" >
                     name = #{name},
+                </if>
+                <if test="indexPage != null" >
+                    index_page = #{indexPage},
                 </if>
                 <if test="icon != null" >
                     icon = #{icon},
@@ -170,6 +179,7 @@
     <sql id="Query_Base_Columns">
         platform_game.id           platform_game_id,
         platform_game.name         platform_game_name,
+        platform_game.index_page   platform_game_index_page,
         platform_game.icon         platform_game_icon,
         platform_game.description  platform_game_description,
         platform_game.merchant_id  platform_game_merchant_id,
@@ -199,6 +209,7 @@
     <resultMap id="BaseResultMap" type="Game">
         <id column="platform_game_id" property="id"/>
         <result column="platform_game_name" property="name"/>
+        <result column="platform_game_index_page" property="indexPage"/>
         <result column="platform_game_icon" property="icon"/>
         <result column="platform_game_description" property="description"/>
         <result column="platform_game_merchant_id" property="merchantId"/>

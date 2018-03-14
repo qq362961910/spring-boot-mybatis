@@ -24,9 +24,14 @@ public class GameServiceImpl extends BaseServiceImpl<Game,GameMapper> implements
 
     @Override
     public Long insert(Game entity) {
-        entity.setCreateTime(new Date());
-        entity.setStar(0);
+        checkInsert(entity);
         return super.insert(entity);
+    }
+
+    @Override
+    public Long insertBatch(List<? extends Game> entityList) {
+        entityList.forEach(this::checkUpdate);
+        return super.insertBatch(entityList);
     }
 
     @Override
@@ -36,5 +41,13 @@ public class GameServiceImpl extends BaseServiceImpl<Game,GameMapper> implements
 
     public GameServiceImpl(GameMapper gameMapper) {
         this.gameMapper = gameMapper;
+    }
+
+    private void checkInsert(Game game) {
+        game.setCreateTime(new Date());
+        game.setStar(0);
+    }
+    private void checkUpdate(Game game) {
+        checkInsert(game);
     }
 }

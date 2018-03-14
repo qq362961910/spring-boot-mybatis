@@ -15,6 +15,11 @@ public class Game extends BaseEntity {
     private String name;
 
     /**
+     * 首页
+     * */
+    private String indexPage;
+
+    /**
      * icon地址
      * */
     private String icon;
@@ -66,6 +71,14 @@ public class Game extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIndexPage() {
+        return indexPage;
+    }
+
+    public void setIndexPage(String indexPage) {
+        this.indexPage = indexPage;
     }
 
     public String getIcon() {

@@ -37,4 +37,10 @@ public class GameDto extends Game {
     public String getDescription() {
         return super.getDescription();
     }
+
+    @NotBlank(message = "game_platform:game_index_page_empty", groups = {Insert.class, Update.class})
+    @Override
+    public String getIndexPage() {
+        return super.getIndexPage();
+    }
 }

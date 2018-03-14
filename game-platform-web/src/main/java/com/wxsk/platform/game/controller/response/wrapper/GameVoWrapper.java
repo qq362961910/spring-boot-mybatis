@@ -18,6 +18,7 @@ public class GameVoWrapper {
         GameVo gameVo = new GameVo();
         gameVo.setId(game.getId());
         gameVo.setName(game.getName());
+        gameVo.setIndexPage(game.getIndexPage());
         gameVo.setIcon(game.getIcon());
         gameVo.setDescription(game.getDescription());
         if(game.getCreateTime() != null) {
@@ -25,9 +26,15 @@ public class GameVoWrapper {
         }
         gameVo.setStatus(game.getStatus());
         gameVo.setStar(game.getStar());
-        gameVo.setLabel1(game.getLabel1());
-        gameVo.setLabel2(game.getLabel2());
-        gameVo.setLabel3(game.getLabel3());
+        if(game.getLabel1() != null) {
+            gameVo.getLabels().add(game.getLabel1());
+        }
+        if(game.getLabel2() != null) {
+            gameVo.getLabels().add(game.getLabel2());
+        }
+        if(game.getLabel3() != null) {
+            gameVo.getLabels().add(game.getLabel3());
+        }
         return gameVo;
     }
 

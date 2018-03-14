@@ -1,5 +1,8 @@
 package com.wxsk.platform.game.controller.response.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameVo extends BaseVo {
 
     private static final String STRUCTURE_TYPE = "platform-game";
@@ -13,6 +16,11 @@ public class GameVo extends BaseVo {
      * 游戏名称
      * */
     private String name;
+
+    /**
+     * 首页
+     * */
+    private String indexPage;
 
     /**
      * icon地址
@@ -40,20 +48,11 @@ public class GameVo extends BaseVo {
      * */
     private Integer star;
 
-    /**
-     * 标签1
-     * */
-    private String label1;
 
     /**
-     * 标签2
+     * 标签
      * */
-    private String label2;
-
-    /**
-     * 标签3
-     * */
-    private String label3;
+    private List<String> labels = new ArrayList<>();
 
 
     public Long getId() {
@@ -70,6 +69,14 @@ public class GameVo extends BaseVo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIndexPage() {
+        return indexPage;
+    }
+
+    public void setIndexPage(String indexPage) {
+        this.indexPage = indexPage;
     }
 
     public String getIcon() {
@@ -112,28 +119,12 @@ public class GameVo extends BaseVo {
         this.star = star;
     }
 
-    public String getLabel1() {
-        return label1;
+    public List<String> getLabels() {
+        return labels;
     }
 
-    public void setLabel1(String label1) {
-        this.label1 = label1;
-    }
-
-    public String getLabel2() {
-        return label2;
-    }
-
-    public void setLabel2(String label2) {
-        this.label2 = label2;
-    }
-
-    public String getLabel3() {
-        return label3;
-    }
-
-    public void setLabel3(String label3) {
-        this.label3 = label3;
+    public void setLabels(List<String> labels) {
+        this.labels = labels;
     }
 
     public GameVo() {
