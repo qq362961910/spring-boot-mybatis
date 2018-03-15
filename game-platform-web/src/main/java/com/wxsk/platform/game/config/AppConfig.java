@@ -9,6 +9,7 @@ import com.wxsk.common.redis.StringRedisClusterUtil;
 import com.wxsk.common.util.mybatis.PrimarykeyGenerator;
 import com.wxsk.common.util.mybatis.impl.JedisClusterPrimarykeyGeneratorCache;
 import com.wxsk.common.util.spring.ApplicationUtil;
+import com.wxsk.platform.game.controller.interceptor.WxUserInfoInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisCluster;
@@ -42,10 +43,10 @@ public class AppConfig {
     }
 
     @Bean
-    public AccessRequiredInteceptorWeChat accessRequiredInteceptorWeChat(StringRedisClusterUtil stringRedisClusterUtil) {
-        AccessRequiredInteceptorWeChat accessRequiredInteceptorWeChat = new AccessRequiredInteceptorWeChat();
-        accessRequiredInteceptorWeChat.setStringRedisClusterUtil(stringRedisClusterUtil);
-        return accessRequiredInteceptorWeChat;
+    public WxUserInfoInterceptor wxUserInfoInterceptor(StringRedisClusterUtil stringRedisClusterUtil) {
+        WxUserInfoInterceptor wxUserInfoInterceptor = new WxUserInfoInterceptor();
+        wxUserInfoInterceptor.setStringRedisClusterUtil(stringRedisClusterUtil);
+        return wxUserInfoInterceptor;
     }
 
 }

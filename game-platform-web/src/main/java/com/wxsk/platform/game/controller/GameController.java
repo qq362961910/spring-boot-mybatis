@@ -31,7 +31,6 @@ import java.util.Map;
 /**
  * 游戏相关api
  * */
-@AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
 @RequestMapping("game/v1")
 @RestController
 public class GameController {
@@ -83,6 +82,7 @@ public class GameController {
     }
 
     @ApiOperation("根据Id查询游戏")
+    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping(value = "/{id:\\d+}")
     public Object queryGameById(@PathVariable("id") Long gameId) {
         Game game = gameService.getById(gameId);
@@ -94,6 +94,7 @@ public class GameController {
         return resultVoWrapper.buildSuccess(data);
     }
     @ApiOperation("根据param查询游戏")
+    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @PostMapping("list")
     public Object queryGameByParam(@RequestBody GameRequestParam requestParam) {
         if(requestParam.getPageNumber() < 0) {
@@ -123,6 +124,7 @@ public class GameController {
     }
 
     @ApiOperation("获取用户信息交换token")
+    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping("user_info_exchange_code")
     public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId) {
         User user = WebUtil.getCurrentUser();
@@ -143,6 +145,7 @@ public class GameController {
     }
 
     @ApiOperation("使用code兑换用户信息")
+    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping("exchange_user_info")
     public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) {
         User user = gameService.exchangeUserByCode(gameId, token, sign);

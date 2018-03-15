@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WxUserInfoInterceptor  extends AccessRequiredInteceptorWeChat {
+public class WxUserInfoInterceptor extends AccessRequiredInteceptorWeChat {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         boolean ok;
