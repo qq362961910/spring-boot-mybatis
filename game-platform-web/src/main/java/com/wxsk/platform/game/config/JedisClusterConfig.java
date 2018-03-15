@@ -20,7 +20,6 @@ public class JedisClusterConfig {
 
     @Bean
     public JedisCluster jedisCluster() {
-
         String[] serverArray = clusterNodes.split(",");
         Set<HostAndPort> nodes = new HashSet<>();
         for (String ipPort : serverArray) {

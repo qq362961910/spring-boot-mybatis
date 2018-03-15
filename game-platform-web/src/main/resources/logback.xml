@@ -10,10 +10,10 @@
     </appender>
     <!-- Output to File -->
     <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>/home/amen/log/tomcat/wxsk-platform-game/wxsk-platform-game-web.log</File>
+        <File>/home/webuser/logs/tomcat/wxsk-platform-game/wxsk-platform-game-web.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>
-                /home/amen/log/tomcat/wxsk-platform-game/wxsk-platform-game-web.%d{yyyy-MM-dd}.log
+                /home/webuser/logs/tomcat/wxsk-platform-game/wxsk-platform-game-web.%d{yyyy-MM-dd}.log
             </FileNamePattern>
             <!-- keep 1 days worth of history -->
             <MaxHistory>10</MaxHistory>
