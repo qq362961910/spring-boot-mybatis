@@ -24,6 +24,6 @@ spring:
 application:
   dubbo:
     applicationName: wxsk_game_platform
-        clientName: wxsk_game_platform
+    clientName: wxsk_game_platform
     registryAddress: zookeeper://zookeeper.server1:21811?backup=zookeeper.server2:21811,zookeeper.server3:21811
     port: 38106
