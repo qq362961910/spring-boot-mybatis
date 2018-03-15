@@ -25,6 +25,17 @@
             <groupId>com.wxsk.cas</groupId>
             <artifactId>wxsk-cas-client</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.wxsk.merchant</groupId>
+            <artifactId>wxsk-merchant-service-remote</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

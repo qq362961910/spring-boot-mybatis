@@ -5,7 +5,17 @@ public enum ErrorCode {
     /**
      * 用户未登录
      * */
-    NON_USER_LOGIN(buildErrorCode("non_user_login")),
+    NON_USER_LOGIN(buildErrorCode("NON_USER_LOGIN")),
+
+    /**
+     * 游戏不存在
+     * */
+    GAME_NOT_EXIST(buildErrorCode("GAME_NOT_EXIST")),
+
+    /**
+     * code无效
+     * */
+    CODE_INVALID(buildErrorCode("CODE_INVALID"))
     ;
 
     private static final String PREFIX = "GAME_PLATFORM";

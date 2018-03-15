@@ -1,13 +1,13 @@
 package com.wxsk.platform.game.controller;
 
 import com.wxsk.cas.client.annotation.AccessRequired;
-import com.wxsk.common.exception.ServiceException;
 import com.wxsk.passport.model.User;
 import com.wxsk.platform.game.controller.request.dto.GameDto;
 import com.wxsk.platform.game.controller.request.dto.GameDtoList;
 import com.wxsk.platform.game.controller.response.vo.ResultVo;
 import com.wxsk.platform.game.controller.response.wrapper.GameVoWrapper;
 import com.wxsk.platform.game.controller.response.wrapper.ResultVoWrapper;
+import com.wxsk.platform.game.controller.response.wrapper.UserVoWrapper;
 import com.wxsk.platform.game.controller.validator.operation.Insert;
 import com.wxsk.platform.game.controller.validator.operation.Update;
 import com.wxsk.platform.game.dao.param.GameRequestParam;
@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * 游戏相关api
  * */
-@Validated
+@AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
 @RequestMapping("game/v1")
 @RestController
 public class GameController {
@@ -42,6 +42,7 @@ public class GameController {
     private ResultVoWrapper resultVoWrapper;
     private GameVoWrapper gameVoWrapper;
     private GameRedisOperation gameRedisOperation;
+    private UserVoWrapper userVoWrapper;
 
     @ApiOperation("新增游戏")
     @PostMapping
@@ -121,16 +122,36 @@ public class GameController {
         return resultVoWrapper.buildSuccess();
     }
 
-    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
+    @ApiOperation("获取用户信息交换token")
     @GetMapping("user_info_exchange_code")
     public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId) {
         User user = WebUtil.getCurrentUser();
         if(user == null) {
-            throw new ServiceException(ErrorCode.NON_USER_LOGIN.getCode());
+            return resultVoWrapper.buildFail(ErrorCode.NON_USER_LOGIN.getCode());
+        }
+        Game game = gameService.getById(gameId);
+        if(game == null) {
+            return resultVoWrapper.buildFail(ErrorCode.GAME_NOT_EXIST.getCode());
         }
         String code = gameRedisOperation.generateUserInfoExchangeCode(user, gameId);
+        logger.info("user: {} login game: {} exchange-code: {}", user.getId(), gameId, code);
         Map<String, Object> data = new HashMap<>();
-        data.put("code", code);
+        data.put("index", game.getIndexPage());
+        data.put("token", code);
+        data.put("gameId", gameId);
+        return resultVoWrapper.buildSuccess(data);
+    }
+
+    @ApiOperation("使用code兑换用户信息")
+    @GetMapping("exchange_user_info")
+    public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) {
+        User user = gameService.exchangeUserByCode(gameId, token, sign);
+        if(user == null) {
+            return resultVoWrapper.buildFail(ErrorCode.CODE_INVALID.getCode());
+        }
+        Map<String, Object> data = new HashMap<>();
+        data.put("gameId", gameId);
+        data.put("user", userVoWrapper.buildUserVo(user));
         return resultVoWrapper.buildSuccess(data);
     }
 
@@ -147,10 +168,15 @@ public class GameController {
         return null;
     }
 
-    public GameController(GameService gameService, ResultVoWrapper resultVoWrapper, GameVoWrapper gameVoWrapper, GameRedisOperation gameRedisOperation) {
+    public GameController(GameService gameService,
+                          ResultVoWrapper resultVoWrapper,
+                          GameVoWrapper gameVoWrapper,
+                          GameRedisOperation gameRedisOperation,
+                          UserVoWrapper userVoWrapper) {
         this.gameService = gameService;
         this.resultVoWrapper = resultVoWrapper;
         this.gameVoWrapper = gameVoWrapper;
         this.gameRedisOperation = gameRedisOperation;
+        this.userVoWrapper = userVoWrapper;
     }
 }
