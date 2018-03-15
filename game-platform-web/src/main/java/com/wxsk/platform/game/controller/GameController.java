@@ -1,6 +1,7 @@
 package com.wxsk.platform.game.controller;
 
 import com.wxsk.cas.client.annotation.AccessRequired;
+import com.wxsk.common.base.controller.BaseController;
 import com.wxsk.passport.model.User;
 import com.wxsk.platform.game.controller.request.dto.GameDto;
 import com.wxsk.platform.game.controller.request.dto.GameDtoList;
@@ -15,7 +16,6 @@ import com.wxsk.platform.game.entity.Game;
 import com.wxsk.platform.game.service.GameService;
 import com.wxsk.platform.game.service.exception.ErrorCode;
 import com.wxsk.platform.game.service.redis.GameRedisOperation;
-import com.wxsk.platform.game.util.WebUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.Map;
  * */
 @RequestMapping("game/v1")
 @RestController
-public class GameController {
+public class GameController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
@@ -126,8 +127,8 @@ public class GameController {
     @ApiOperation("获取用户信息交换token")
     @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping("user_info_exchange_code")
-    public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId) {
-        User user = WebUtil.getCurrentUser();
+    public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId, HttpServletRequest request) {
+        User user = getLoginUser(request);
         if(user == null) {
             return resultVoWrapper.buildFail(ErrorCode.NON_USER_LOGIN.getCode());
         }
@@ -145,7 +146,6 @@ public class GameController {
     }
 
     @ApiOperation("使用code兑换用户信息")
-    @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping("exchange_user_info")
     public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) {
         User user = gameService.exchangeUserByCode(gameId, token, sign);

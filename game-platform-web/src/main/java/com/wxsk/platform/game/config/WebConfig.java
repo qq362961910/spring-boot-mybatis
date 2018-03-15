@@ -1,6 +1,6 @@
 package com.wxsk.platform.game.config;
 
-import com.wxsk.platform.game.controller.interceptor.WxUserInfoInterceptor;
+import com.wxsk.cas.client.interceptor.AccessRequiredInteceptorWeChat;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -8,15 +8,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private WxUserInfoInterceptor wxUserInfoInterceptor;
+    private AccessRequiredInteceptorWeChat accessRequiredInteceptorWeChat;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(wxUserInfoInterceptor);
+        registry.addInterceptor(accessRequiredInteceptorWeChat);
     }
 
-    public WebConfig(WxUserInfoInterceptor wxUserInfoInterceptor) {
-        this.wxUserInfoInterceptor = wxUserInfoInterceptor;
+    public WebConfig(AccessRequiredInteceptorWeChat accessRequiredInteceptorWeChat) {
+        this.accessRequiredInteceptorWeChat = accessRequiredInteceptorWeChat;
     }
-
 }
