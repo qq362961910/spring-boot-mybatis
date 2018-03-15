@@ -23,6 +23,20 @@ public class Game extends BaseEntity {
      * icon地址
      * */
     private String icon;
+    /**
+     * 秘钥
+     * */
+    private String secret;
+
+    /**
+     * 服务端通知地址
+     * */
+    private String serverNotifyUrl;
+
+    /**
+     * 前端通知地址
+     * */
+    private String pageNotifyUrl;
 
     /**
      * 描述
@@ -87,6 +101,30 @@ public class Game extends BaseEntity {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getServerNotifyUrl() {
+        return serverNotifyUrl;
+    }
+
+    public void setServerNotifyUrl(String serverNotifyUrl) {
+        this.serverNotifyUrl = serverNotifyUrl;
+    }
+
+    public String getPageNotifyUrl() {
+        return pageNotifyUrl;
+    }
+
+    public void setPageNotifyUrl(String pageNotifyUrl) {
+        this.pageNotifyUrl = pageNotifyUrl;
     }
 
     public String getDescription() {
