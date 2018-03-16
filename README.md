@@ -4,6 +4,6 @@
 ###api文档
 >1.查看地址
 
-    http://99game.51play.com/swagger-uil.html
+    http://99game.51play.com/swagger-ui.html
     
 >2.未完待续
