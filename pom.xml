@@ -7,7 +7,6 @@
 	<artifactId>game-platform</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<modules>
-		<module>game-platform-client</module>
 		<module>game-platform-entity</module>
 		<module>game-platform-dao</module>
 		<module>game-platform-service</module>
@@ -55,11 +54,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>com.wxsk.platform</groupId>
-				<artifactId>game-platform-client</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>com.wxsk.platform</groupId>
 				<artifactId>game-platform-entity</artifactId>

@@ -13,9 +13,15 @@ public enum ErrorCode {
     GAME_NOT_EXIST(buildErrorCode("GAME_NOT_EXIST")),
 
     /**
+     * game secret不存在
+     * */
+    GAME_SECRET_NOT_EXIST(buildErrorCode("GAME_SECRET_NOT_EXIST")),
+
+    /**
      * code无效
      * */
     CODE_INVALID(buildErrorCode("CODE_INVALID"))
+
     ;
 
     private static final String PREFIX = "GAME_PLATFORM";

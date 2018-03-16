@@ -23,8 +23,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,14 +152,18 @@ public class GameController extends BaseController {
 
     @ApiOperation("使用code兑换用户信息")
     @GetMapping("exchange_user_info")
-    public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) {
+    public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) throws InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
+        Game game = gameService.getById(gameId);
+        if(game == null) {
+            return resultVoWrapper.buildFail(ErrorCode.GAME_NOT_EXIST.getCode());
+        }
         User user = gameService.exchangeUserByCode(gameId, token, sign);
         if(user == null) {
             return resultVoWrapper.buildFail(ErrorCode.CODE_INVALID.getCode());
         }
         Map<String, Object> data = new HashMap<>();
         data.put("gameId", gameId);
-        data.put("user", userVoWrapper.buildUserVo(user));
+        data.put("user", userVoWrapper.buildUserVo(user, game));
         return resultVoWrapper.buildSuccess(data);
     }
 

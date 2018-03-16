@@ -7,5 +7,14 @@ import com.wxsk.platform.game.entity.Game;
 import java.util.List;
 
 public interface GameMapper extends BaseMapper<Game> {
+
+    /**
+     * 根据GameRequestParam查询游戏列表
+     * */
     List<Game> queryByParamMap(GameRequestParam param);
+
+    /**
+     * 根据游戏id查询secret
+     * */
+    String querySecretByGameId(Long gameId);
 }

@@ -37,8 +37,9 @@
             <artifactId>game-platform-service-remote</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.wxsk.platform</groupId>
-            <artifactId>game-platform-client</artifactId>
+            <groupId>com.wxsk.merchant</groupId>
+            <artifactId>wxsk-merchant-service-remote</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
