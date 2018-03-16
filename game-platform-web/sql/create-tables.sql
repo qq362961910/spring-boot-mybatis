@@ -13,6 +13,9 @@ create table platform_game
   create_time DATETIME COMMENT '创建时间',
   status INT COMMENT '状态',
   star INT COMMENT '星级, 满星为10',
+  secret VARCHAR(200) COMMENT '游戏密钥',
+  server_notify_url VARCHAR(120) COMMENT '后端通知地址',
+  page_notify_url VARCHAR(120) COMMENT '前端通知地址',
   label1 VARCHAR(10) COMMENT '标签1',
   label2 VARCHAR(10) COMMENT '标签2',
   label3 VARCHAR(10) COMMENT '标签3'

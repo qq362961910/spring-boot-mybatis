@@ -26,6 +26,9 @@
             <if test="createTime != null">create_time,</if>
             <if test="status != null">status,</if>
             <if test="star != null">star,</if>
+            <if test="secret != null">secret,</if>
+            <if test="serverNotifyUrl != null">server_notify_url,</if>
+            <if test="pageNotifyUrl != null">page_notify_url,</if>
             <if test="label1 != null">label1,</if>
             <if test="label2 != null">label2,</if>
             <if test="label3 != null">label3,</if>
@@ -40,6 +43,9 @@
             <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
             <if test="status != null">#{status},</if>
             <if test="star != null">#{star},</if>
+            <if test="secret != null">#{secret},</if>
+            <if test="serverNotifyUrl != null">#{serverNotifyUrl},</if>
+            <if test="pageNotifyUrl != null">#{pageNotifyUrl},</if>
             <if test="label1 != null">#{label1},</if>
             <if test="label2 != null">#{label2},</if>
             <if test="label3 != null">#{label3},</if>
@@ -48,7 +54,7 @@
 
     <insert id="insertBatch"  parameterType="list">
         insert into platform_game
-        (id, name, index_page, icon, description, merchant_id, create_time, status, star, label1, label2, label3)
+        (id, name, index_page, icon, description, merchant_id, create_time, status, star, secret, server_notify_url, page_notify_url, label1, label2, label3)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.id,jdbcType=BIGINT},
@@ -60,6 +66,9 @@
             #{item.createTime,jdbcType=TIMESTAMP},
             #{item.status},
             #{item.star},
+            #{item.secret},
+            #{item.serverNotifyUrl},
+            #{item.pageNotifyUrl},
             #{item.label1},
             #{item.label2},
             #{item.label3})
@@ -109,6 +118,15 @@
             <if test="star != null" >
                 star = #{star},
             </if>
+            <if test="secret != null" >
+                secret = #{secret},
+            </if>
+            <if test="serverNotifyUrl != null" >
+                server_notify_url = #{serverNotifyUrl},
+            </if>
+            <if test="pageNotifyUrl != null" >
+                page_notify_url = #{pageNotifyUrl},
+            </if>
             <if test="label1 != null" >
                 label1 = #{label1},
             </if>
@@ -150,6 +168,15 @@
                 <if test="star != null" >
                     star = #{star},
                 </if>
+                <if test="secret != null" >
+                    secret = #{secret},
+                </if>
+                <if test="serverNotifyUrl != null" >
+                    server_notify_url = #{serverNotifyUrl},
+                </if>
+                <if test="pageNotifyUrl != null" >
+                    page_notify_url = #{pageNotifyUrl},
+                </if>
                 <if test="label1 != null" >
                     label1 = #{label1},
                 </if>
@@ -176,19 +203,34 @@
         <include refid="sql_of_where"/>
     </select>
 
+    <select id="querySecretByGameId" statementType="PREPARED" parameterType="long">
+        select secret from platform_game where id = #{id}
+    </select>
+
+    <select id="queryServerNotifyUrlByGameId" statementType="PREPARED" parameterType="long">
+        select server_notify_url from platform_game where id = #{id}
+    </select>
+
+    <select id="queryPageNotifyUrlByGameId" statementType="PREPARED" parameterType="long">
+        select page_notify_url from platform_game where id = #{id}
+    </select>
+
     <sql id="Query_Base_Columns">
-        platform_game.id           platform_game_id,
-        platform_game.name         platform_game_name,
-        platform_game.index_page   platform_game_index_page,
-        platform_game.icon         platform_game_icon,
-        platform_game.description  platform_game_description,
-        platform_game.merchant_id  platform_game_merchant_id,
-        platform_game.create_time  platform_game_create_time,
-        platform_game.status       platform_game_status,
-        platform_game.star         platform_game_star,
-        platform_game.label1       platform_game_label1,
-        platform_game.label2       platform_game_label2,
-        platform_game.label3       platform_game_label3
+        platform_game.id                 platform_game_id,
+        platform_game.name               platform_game_name,
+        platform_game.index_page         platform_game_index_page,
+        platform_game.icon               platform_game_icon,
+        platform_game.description        platform_game_description,
+        platform_game.merchant_id        platform_game_merchant_id,
+        platform_game.create_time        platform_game_create_time,
+        platform_game.status             platform_game_status,
+        platform_game.star               platform_game_star,
+        platform_game.secret             platform_game_secret,
+        platform_game.server_notify_url  platform_game_server_notify_url,
+        platform_game.page_notify_url    platform_game_page_notify_url,
+        platform_game.label1             platform_game_label1,
+        platform_game.label2             platform_game_label2,
+        platform_game.label3             platform_game_label3
     </sql>
 
     <sql id="sql_of_where">
@@ -216,8 +258,12 @@
         <result column="platform_game_create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="platform_game_status" property="status"/>
         <result column="platform_game_star" property="star"/>
+        <result column="platform_game_secret" property="secret"/>
+        <result column="platform_game_server_notify_url" property="serverNotifyUrl"/>
+        <result column="platform_game_page_notify_url" property="pageNotifyUrl"/>
         <result column="platform_game_label1" property="label1"/>
         <result column="platform_game_label2"  property="label2"/>
         <result column="platform_game_label3"  property="label3"/>
     </resultMap>
+
 </mapper>

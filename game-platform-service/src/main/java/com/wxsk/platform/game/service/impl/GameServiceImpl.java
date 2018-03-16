@@ -7,7 +7,7 @@ import com.wxsk.platform.game.dao.param.GameRequestParam;
 import com.wxsk.platform.game.entity.Game;
 import com.wxsk.platform.game.service.GameService;
 import com.wxsk.platform.game.service.redis.GameRedisOperation;
-import com.wxsk.platform.game.service.remote.SignServiceRemote;
+import com.wxsk.platform.game.service.remote.GameServiceRemote;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+@com.alibaba.dubbo.config.annotation.Service(interfaceClass = GameServiceRemote.class, version = "1.0")
 @Transactional(rollbackFor = Exception.class)
 @Service
-public class GameServiceImpl extends BaseServiceImpl<Game,GameMapper> implements GameService {
+public class GameServiceImpl extends BaseServiceImpl<Game,GameMapper> implements GameService, GameServiceRemote {
 
     private GameMapper gameMapper;
 
     private GameRedisOperation gameRedisOperation;
 
+    @Transactional(readOnly = true)
     @Override
     public List<Game> queryByParamMap(GameRequestParam param) {
         return gameMapper.queryByParamMap(param);
@@ -44,6 +46,18 @@ public class GameServiceImpl extends BaseServiceImpl<Game,GameMapper> implements
     @Override
     public User exchangeUserByCode(Long gameId, String code, String sign) {
         return (User)gameRedisOperation.get(code);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public String getServerNotifyUrlByGameId(Long gameId) {
+        return gameMapper.queryServerNotifyUrlByGameId(gameId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public String getPageNotifyUrlByGameId(Long gameId) {
+        return gameMapper.queryPageNotifyUrlByGameId(gameId);
     }
 
     @Override

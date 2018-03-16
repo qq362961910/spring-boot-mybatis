@@ -14,4 +14,14 @@ public interface GameService extends IBaseService<Game,GameMapper> {
 
     User exchangeUserByCode(Long gameId, String code, String sign);
 
+    /**
+     * 根据game id获取serverNotifyUrl
+     * */
+    String getServerNotifyUrlByGameId(Long gameId);
+
+    /**
+     * 根据game id获取pageNotifyUrl
+     * */
+    String getPageNotifyUrlByGameId(Long gameId);
+
 }

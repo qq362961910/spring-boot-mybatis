@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
+@com.alibaba.dubbo.config.annotation.Service(interfaceClass = SignServiceRemote.class, version = "1.0")
 @Transactional(readOnly = true)
 @Service
 public class SignServiceImpl implements SignService, SignServiceRemote {

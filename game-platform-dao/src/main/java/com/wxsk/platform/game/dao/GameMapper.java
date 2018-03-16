@@ -17,4 +17,14 @@ public interface GameMapper extends BaseMapper<Game> {
      * 根据游戏id查询secret
      * */
     String querySecretByGameId(Long gameId);
+
+    /**
+     * 根据game id获取serverNotifyUrl
+     * */
+    String queryServerNotifyUrlByGameId(Long gameId);
+
+    /**
+     * 根据game id获取pageNotifyUrl
+     * */
+    String queryPageNotifyUrlByGameId(Long gameId);
 }

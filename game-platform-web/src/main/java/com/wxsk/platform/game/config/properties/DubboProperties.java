@@ -11,10 +11,6 @@ public class DubboProperties {
      * */
     private String applicationName;
 
-    /**
-     * client name
-     * */
-    private String clientName;
 
     /**
      * registryAddress
@@ -32,14 +28,6 @@ public class DubboProperties {
 
     public void setApplicationName(String applicationName) {
         this.applicationName = applicationName;
-    }
-
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
     }
 
     public String getRegistryAddress() {

@@ -29,7 +29,6 @@ public class DubboConfig {
     public RegistryConfig registryConfig() {
         RegistryConfig registryConfig = new RegistryConfig();
         registryConfig.setAddress(dubboProperties.getRegistryAddress());
-        registryConfig.setClient(dubboProperties.getClientName());
         return registryConfig;
     }
 
