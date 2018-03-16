@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-@DubboComponentScan(basePackages = "com.wxsk.platform.game.service")
+@DubboComponentScan(basePackages = "com.wxsk.platform.game")
 @MapperScan("com.wxsk.platform.game.dao")
 @SpringBootApplication
 public class GamePlatformApplication {

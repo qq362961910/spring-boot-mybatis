@@ -13,6 +13,12 @@ public class UserVo extends BaseVo {
      * */
     private String nickname;
 
+    /**
+     * 头像
+     * */
+    private String avatar;
+
+
     public String getOpenId() {
         return openId;
     }
@@ -31,5 +37,13 @@ public class UserVo extends BaseVo {
 
     public UserVo() {
         super(STRUCTURE_TYPE);
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
