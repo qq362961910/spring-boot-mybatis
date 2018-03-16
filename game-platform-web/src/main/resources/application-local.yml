@@ -2,9 +2,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.14.227:3306/blog?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-    username: blog
-    password: blog
+    url: jdbc:mysql://192.168.14.227:3306/platform?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123
     maxActive: 200
     initialSize: 10
     maxWait: 60000
