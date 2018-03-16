@@ -25,4 +25,4 @@ application:
   dubbo:
     applicationName: wxsk_game_platform
     registryAddress: zookeeper://127.0.0.1:2181
-    port: 38106
+    port: 20906

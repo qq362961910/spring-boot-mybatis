@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://com.wxsk.vr.pay.db:3306/platform?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://com.wxsk.platform.db:3306/platform?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
     username: tomcat
     password: 1Lk_6Ao_3XhG6_6f
     maxActive: 200
@@ -25,4 +25,4 @@ application:
   dubbo:
     applicationName: wxsk_game_platform
     registryAddress: zookeeper://zookeeper.server1:2181?backup=zookeeper.server2:2181,zookeeper.server3:2181
-    port: 38106
+    port: 20906
