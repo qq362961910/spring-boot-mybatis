@@ -111,18 +111,21 @@
             </activation>
             <properties>
                 <package.environment>local</package.environment>
+                <log.directory.path>/home/amen/log/tomcat/wxsk-platform-game</log.directory.path>
             </properties>
         </profile>
         <profile>
             <id>test</id>
             <properties>
                 <package.environment>test</package.environment>
+                <log.directory.path>/home/webuser/logs/tomcat/wxsk-platform-game</log.directory.path>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <package.environment>prod</package.environment>
+                <log.directory.path>/home/webuser/logs/tomcat/wxsk-platform-game/</log.directory.path>
             </properties>
         </profile>
     </profiles>
