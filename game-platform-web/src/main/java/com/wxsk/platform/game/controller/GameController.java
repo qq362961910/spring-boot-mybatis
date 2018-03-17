@@ -16,7 +16,10 @@ import com.wxsk.platform.game.entity.Game;
 import com.wxsk.platform.game.service.GameService;
 import com.wxsk.platform.game.service.exception.ErrorCode;
 import com.wxsk.platform.game.service.redis.GameRedisOperation;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -37,6 +40,7 @@ import java.util.Map;
 /**
  * 游戏相关api
  * */
+@Api(tags = "游戏相关接口")
 @RequestMapping("game/v1")
 @RestController
 public class GameController extends BaseController {
@@ -49,9 +53,10 @@ public class GameController extends BaseController {
     private GameRedisOperation gameRedisOperation;
     private UserVoWrapper userVoWrapper;
 
-    @ApiOperation("新增游戏")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "新增游戏成功")
+    @ApiOperation(value = "新增游戏", consumes = "application/json", produces = "application/json")
     @PostMapping
-    public Object saveGame(@Validated(Insert.class) @RequestBody GameDto gameDto, BindingResult errors) {
+    public ResultVo saveGame(@Validated(Insert.class) @RequestBody GameDto gameDto, BindingResult errors) {
         ResultVo vo = dealErrors(errors);
         if(vo != null) {
             return vo;
@@ -66,16 +71,18 @@ public class GameController extends BaseController {
         return resultVoWrapper.buildSuccess(data);
     }
 
-    @ApiOperation("删除游戏")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "删除游戏成功")
+    @ApiOperation(value = "删除游戏", produces = "application/json")
     @DeleteMapping(value = "/{id:\\d+}")
-    public Object removeGameById(@PathVariable("id") Long gameId){
+    public ResultVo removeGameById(@PathVariable("id") Long gameId){
         gameService.delete(gameId);
         return resultVoWrapper.buildSuccess();
     }
 
-    @ApiOperation("修改游戏")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "修改游戏成功")
+    @ApiOperation(value = "修改游戏", consumes = "application/json", produces = "application/json")
     @PutMapping
-    public Object modifyGame(@Validated({Insert.class, Update.class}) @RequestBody GameDto gameDto, BindingResult errors) {
+    public ResultVo modifyGame(@Validated({Insert.class, Update.class}) @RequestBody GameDto gameDto, BindingResult errors) {
         ResultVo vo = dealErrors(errors);
         if(vo != null) {
             return vo;
@@ -87,10 +94,11 @@ public class GameController extends BaseController {
         return resultVoWrapper.buildSuccess(data);
     }
 
-    @ApiOperation("根据Id查询游戏")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "根据Id查询游戏成功")
+    @ApiOperation(value = "根据Id查询游戏", produces = "application/json")
     @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping(value = "/{id:\\d+}")
-    public Object queryGameById(@PathVariable("id") Long gameId) {
+    public ResultVo queryGameById(@PathVariable("id") Long gameId) {
         Game game = gameService.getById(gameId);
         if(game == null) {
             return resultVoWrapper.buildFail();
@@ -99,10 +107,12 @@ public class GameController extends BaseController {
         data.put("game", gameVoWrapper.buildGameVo(game));
         return resultVoWrapper.buildSuccess(data);
     }
-    @ApiOperation("根据param查询游戏")
+
+    @ApiResponse(code = HttpStatus.SC_OK, message = "根据param查询游戏成功")
+    @ApiOperation(value = "根据param查询游戏", consumes = "application/json", produces = "application/json")
     @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @PostMapping("list")
-    public Object queryGameByParam(@RequestBody GameRequestParam requestParam) {
+    public ResultVo queryGameByParam(@RequestBody GameRequestParam requestParam) {
         if(requestParam.getPageNumber() < 0) {
             requestParam.setPageNumber(0);
         }
@@ -115,9 +125,10 @@ public class GameController extends BaseController {
         return resultVoWrapper.buildSuccess(data);
     }
 
-    @ApiOperation("批量插入游戏")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "批量插入游戏成功")
+    @ApiOperation(value = "批量插入游戏", consumes = "application/json", produces = "application/json")
     @PostMapping("insert_batch")
-    public Object insertBatch(@Valid @RequestBody GameDtoList list, BindingResult errors) {
+    public ResultVo insertBatch(@Valid @RequestBody GameDtoList list, BindingResult errors) {
         ResultVo vo = dealErrors(errors);
         if(vo != null) {
             return vo;
@@ -129,10 +140,11 @@ public class GameController extends BaseController {
         return resultVoWrapper.buildSuccess();
     }
 
-    @ApiOperation("获取用户信息交换token")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "获取token成功")
+    @ApiOperation(value = "获取token", produces = "application/json")
     @AccessRequired(respongseType = AccessRequired.RespongseType.JSON)
     @GetMapping("user_info_exchange_code")
-    public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId, HttpServletRequest request) {
+    public ResultVo getUserInfoExchangeCode(@RequestParam("gameId") Long gameId, HttpServletRequest request) {
         User user = getLoginUser(request);
         if(user == null) {
             logger.warn("获取用户信息交换token失败, 当前用户未登录或登录失效");
@@ -152,9 +164,10 @@ public class GameController extends BaseController {
         return resultVoWrapper.buildSuccess(data);
     }
 
-    @ApiOperation("使用token兑换用户信息")
+    @ApiResponse(code = HttpStatus.SC_OK, message = "获取用户信息成功")
+    @ApiOperation(value = "获取用户信息", produces = "application/json")
     @GetMapping("exchange_user_info")
-    public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) throws InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
+    public ResultVo exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) throws InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
         Game game = gameService.getById(gameId);
         if(game == null) {
             logger.warn("使用token兑换用户信息失败, 游戏不存在");
