@@ -198,20 +198,20 @@
         <include refid="CommonMapper.orderByAndSplitPage"/>
     </select>
 
-    <select id="countByParamMap" statementType="PREPARED">
+    <select id="countByParamMap" statementType="PREPARED" resultType="long">
         select count(id) from platform_game
         <include refid="sql_of_where"/>
     </select>
 
-    <select id="querySecretByGameId" statementType="PREPARED" parameterType="long">
+    <select id="querySecretByGameId" statementType="PREPARED" parameterType="long" resultType="string">
         select secret from platform_game where id = #{id}
     </select>
 
-    <select id="queryServerNotifyUrlByGameId" statementType="PREPARED" parameterType="long">
+    <select id="queryServerNotifyUrlByGameId" statementType="PREPARED" parameterType="long"  resultType="string">
         select server_notify_url from platform_game where id = #{id}
     </select>
 
-    <select id="queryPageNotifyUrlByGameId" statementType="PREPARED" parameterType="long">
+    <select id="queryPageNotifyUrlByGameId" statementType="PREPARED" parameterType="long"  resultType="string">
         select page_notify_url from platform_game where id = #{id}
     </select>
 
