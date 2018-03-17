@@ -43,9 +43,7 @@ public class GameVoWrapper {
             return Collections.emptyList();
         }
         List<GameVo> gameVoList = new ArrayList<>(gameList.size());
-        gameList.forEach(game -> {
-            gameVoList.add(buildGameVo(game));
-        });
+        gameList.forEach(game -> gameVoList.add(buildGameVo(game)));
         return gameVoList;
     }
 

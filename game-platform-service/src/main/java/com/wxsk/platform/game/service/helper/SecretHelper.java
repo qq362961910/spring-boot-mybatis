@@ -87,26 +87,26 @@ public class SecretHelper {
      * @param params 需要排序并参与字符拼接的参数组
      * @return 拼接后字符串
      */
-    public String createLinkString(Map<String, String> params) {
+    private String createLinkString(Map<String, String> params) {
 
         List<String> keys = new ArrayList<>(params.keySet());
         Collections.sort(keys);
-        String prestr = "";
+        String preStr = "";
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
             String value = params.get(key);
             if (i == keys.size() - 1) {//拼接时，不包括最后一个&字符
-                prestr = prestr + key + "=" + value;
+                preStr = preStr + key + "=" + value;
             } else {
-                prestr = prestr + key + "=" + value + "&";
+                preStr = preStr + key + "=" + value + "&";
             }
         }
-        return prestr;
+        return preStr;
     }
 
 
 
-    public byte[] pkcs5Padding(byte[] keyBytes) {
+    private byte[] pkcs5Padding(byte[] keyBytes) {
         int length = keyBytes.length;
         int tailLength = length % 16;
         if(tailLength > 0) {
