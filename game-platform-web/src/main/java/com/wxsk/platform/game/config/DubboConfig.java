@@ -2,6 +2,7 @@ package com.wxsk.platform.game.config;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ConsumerConfig;
+import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.wxsk.platform.game.config.properties.DubboProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,6 +39,12 @@ public class DubboConfig {
         consumerConfig.setDefault(true);
         consumerConfig.setCheck(false);
         return consumerConfig;
+    }
+    @Bean
+    public ProtocolConfig protocolConfig() {
+        ProtocolConfig protocolConfig = new ProtocolConfig("dubbo", dubboProperties.getPort());
+        protocolConfig.setSerialization("java");//默认为hessian2,但不支持无参构造函数类,而这种方式的效率很低
+        return protocolConfig;
     }
 
 
