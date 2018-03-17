@@ -135,10 +135,12 @@ public class GameController extends BaseController {
     public Object getUserInfoExchangeCode(@RequestParam("gameId") Long gameId, HttpServletRequest request) {
         User user = getLoginUser(request);
         if(user == null) {
+            logger.warn("获取用户信息交换token失败, 当前用户未登录或登录失效");
             return resultVoWrapper.buildFail(ErrorCode.NON_USER_LOGIN.getCode());
         }
         Game game = gameService.getById(gameId);
         if(game == null) {
+            logger.warn("获取用户信息交换token失败, 游戏不存在");
             return resultVoWrapper.buildFail(ErrorCode.GAME_NOT_EXIST.getCode());
         }
         String code = gameRedisOperation.generateUserInfoExchangeCode(user, gameId);
@@ -150,15 +152,17 @@ public class GameController extends BaseController {
         return resultVoWrapper.buildSuccess(data);
     }
 
-    @ApiOperation("使用code兑换用户信息")
+    @ApiOperation("使用token兑换用户信息")
     @GetMapping("exchange_user_info")
     public Object exchangeUserInfo(@RequestParam("gameId") Long gameId, @RequestParam("token") String token, @RequestParam("sign") String sign) throws InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
         Game game = gameService.getById(gameId);
         if(game == null) {
+            logger.warn("使用token兑换用户信息失败, 游戏不存在");
             return resultVoWrapper.buildFail(ErrorCode.GAME_NOT_EXIST.getCode());
         }
         User user = gameService.exchangeUserByCode(gameId, token, sign);
         if(user == null) {
+            logger.warn("使用token兑换用户信息失败, token失效或签名错误");
             return resultVoWrapper.buildFail(ErrorCode.CODE_INVALID.getCode());
         }
         Map<String, Object> data = new HashMap<>();
